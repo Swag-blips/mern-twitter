@@ -4,6 +4,7 @@ import {
   followUnfollowUser,
   getSuggestedUsers,
   getUserProfile,
+  updateUser,
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
