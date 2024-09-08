@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import XSvg from "../../../components/svgs/X";
 import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
@@ -12,12 +12,13 @@ const LoginPage = () => {
     password: "",
   });
 
+  const queryClient = useQueryClient();
+
   const {
     mutate: login,
     isError,
     isPending,
     error,
-    
   } = useMutation({
     mutationFn: async ({ username, password }) => {
       try {
@@ -40,7 +41,8 @@ const LoginPage = () => {
       }
     },
     onSuccess: () => {
-      toast.success("Login successful");
+      // refetch the authuser
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
   });
 
