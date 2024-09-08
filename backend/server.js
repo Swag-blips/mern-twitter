@@ -8,7 +8,7 @@ import postRoutes from "./routes/post.route.js";
 import notificationRoutes from "./routes/notification.route.js";
 import { v2 as cloudinary } from "cloudinary";
 
-dotenv.config();
+dotenv.config();  
 
 const app = express();
 
