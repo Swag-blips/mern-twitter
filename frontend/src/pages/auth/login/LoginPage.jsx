@@ -13,7 +13,7 @@ const LoginPage = () => {
   });
 
   const queryClient = useQueryClient();
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {
     mutate: login,
     isError,
@@ -22,7 +22,7 @@ const LoginPage = () => {
   } = useMutation({
     mutationFn: async ({ username, password }) => {
       try {
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch(`${apiUrl}/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

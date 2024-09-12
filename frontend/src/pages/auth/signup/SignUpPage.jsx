@@ -16,11 +16,11 @@ const SignUpPage = () => {
     fullName: "",
     password: "",
   });
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { mutate, isError, isPending, error } = useMutation({
     mutationFn: async ({ email, username, fullName, password }) => {
       try {
-        const res = await fetch("/api/auth/signup", {
+        const res = await fetch(`${apiUrl}/api/auth/signup`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
