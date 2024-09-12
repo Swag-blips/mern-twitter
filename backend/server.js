@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.route.js";
 import connectMongoDB from "./db/connectMongoDB.js";
@@ -19,6 +20,8 @@ cloudinary.config({
 });
 
 const PORT = process.env.PORT || 8000;
+const __dirname = path.resolve();
+
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -28,10 +31,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Server is ready");
-});
+
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
+  console.log(`Running in ${process.env.NODE_ENV} mode`);
+
   connectMongoDB();
 });
