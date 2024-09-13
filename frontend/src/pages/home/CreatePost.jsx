@@ -10,6 +10,7 @@ const CreatePost = () => {
   const [img, setImg] = useState(null);
 
   const imgRef = useRef(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const queryClient = useQueryClient();
@@ -22,11 +23,12 @@ const CreatePost = () => {
   } = useMutation({
     mutationFn: async ({ text, img }) => {
       try {
-        const res = await fetch("/api/posts/create", {
+        const res = await fetch(`${apiUrl}/api/posts/create`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({ text, img }),
         });
 
