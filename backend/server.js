@@ -50,7 +50,6 @@ app.use("/api/notifications", notificationRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
-  console.log(`Running in ${process.env.NODE_ENV} mode`);
 
   connectMongoDB();
 });
