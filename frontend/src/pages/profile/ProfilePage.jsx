@@ -27,6 +27,7 @@ const ProfilePage = () => {
   const { username } = useParams();
   const { follow, isPending } = useFollow();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {
     data: user,
     isLoading,
@@ -36,7 +37,9 @@ const ProfilePage = () => {
     queryKey: ["userProfile"],
     queryFn: async () => {
       try {
-        const res = await fetch(`/api/users/profile/${username}`);
+        const res = await fetch(`${apiUrl}/api/users/profile/${username}`, {
+          credentials: "include",
+        });
 
         const data = await res.json();
 
@@ -52,7 +55,6 @@ const ProfilePage = () => {
 
   useEffect(() => {
     refetch();
-    console.log("coming from profile", authUser);
   }, [username, refetch]);
 
   const { data: authUser } = useQuery({

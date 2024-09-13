@@ -13,7 +13,7 @@ import { formatPostDate } from "../../utils/date";
 const Post = ({ post }) => {
   const [comment, setComment] = useState("");
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const queryClient = useQueryClient();
 
   const postOwner = post.user;
@@ -25,8 +25,9 @@ const Post = ({ post }) => {
   const { mutate: deletePost, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch(`/api/posts/${post._id}`, {
+        const res = await fetch(`${apiUrl}/api/posts/${post._id}`, {
           method: "DELETE",
+          credentials: "include",
         });
 
         const data = await res.json();
@@ -50,8 +51,9 @@ const Post = ({ post }) => {
   const { mutate: likePost, isPending: isLiking } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch(`/api/posts/like/${post._id}`, {
+        const res = await fetch(`${apiUrl}/api/posts/like/${post._id}`, {
           method: "POST",
+          credentials: "include",
         });
         const data = await res.json();
 
@@ -84,8 +86,9 @@ const Post = ({ post }) => {
   const { mutate: commentPost, isPending: isCommenting } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch(`/api/posts/comment/${post._id}`, {
+        const res = await fetch(`${apiUrl}/api/posts/comment/${post._id}`, {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

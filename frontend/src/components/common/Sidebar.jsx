@@ -10,12 +10,13 @@ import toast from "react-hot-toast";
 
 const Sidebar = () => {
   const queryClient = useQueryClient();
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("/api/auth/logout", {
+        const res = await fetch(`${apiUrl}/api/auth/logout`, {
           method: "POST",
+          credentials: "include",
         });
         const data = await res.json();
 

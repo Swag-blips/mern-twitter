@@ -8,6 +8,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const NotificationPage = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const queryClient = useQueryClient();
   const {
     data: notifications,
@@ -17,7 +18,9 @@ const NotificationPage = () => {
     queryKey: ["notifications"],
     queryFn: async () => {
       try {
-        const res = await fetch("/api/notifications");
+        const res = await fetch(`${apiUrl}/api/notifications`, {
+          credentials: "include",
+        });
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error || "Something went wrong");
